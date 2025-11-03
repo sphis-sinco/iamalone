@@ -23,7 +23,12 @@ class IntroSlide extends Slide
 			nicom.alpha = 0;
 			nicom.screenCenter();
 
-			FlxTween.tween(nicom, {alpha: 1}, 1);
+			FlxTween.tween(nicom, {alpha: 1}, 1, {
+				onComplete: function(tween:FlxTween)
+				{
+					trace("Tweened Nicom into view");
+				}
+			});
 		}
 
 		this.events.push(event_1);
