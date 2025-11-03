@@ -150,6 +150,15 @@ class Slide extends FlxState
 		{
 			return;
 		}
+		for (object in this.members)
+		{
+			if (![this.object_press_key_to_continue_text, this.object_press_key_to_skip_text].contains(object))
+			{
+				this.members.remove(object);
+				object.destroy();
+			}
+		}
+
 		trace("starting event " + (event + 1));
 
 		this.object_press_key_to_continue_text.visible = false;
