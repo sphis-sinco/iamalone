@@ -139,7 +139,7 @@ class Slide extends FlxState
 				}
 			}
 
-			if (this.current_event == (this.events.length - 1))
+			if (this.current_event == (this.events.length - 1) && this.proceeding_slide != null)
 			{
 				this.object_press_key_to_skip_text.visible = true;
 			}
