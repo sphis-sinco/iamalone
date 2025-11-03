@@ -53,7 +53,7 @@ class IntroSlide extends Slide
 			add(nicom);
 
 			FlxTween.tween(nicom, {alpha: 0.75}, 1, {
-				ease: FlxEase.sineInOut
+				ease: FlxEase.smootherStepInOut
 			});
 			event_2.setVariable('squash_and_stretch_frames', [0, 1, 2, 4, 5, 7, 9, 11]);
 			event_2.setVariable('squash_and_stretch_differences', [
