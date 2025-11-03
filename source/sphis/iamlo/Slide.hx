@@ -126,6 +126,8 @@ class Slide extends FlxState
 		{
 			return;
 		}
+		trace("starting event " + (event + 1));
+
 		this.object_press_key_to_continue_text.visible = false;
 		this.object_press_key_to_skip_text.visible = false;
 
