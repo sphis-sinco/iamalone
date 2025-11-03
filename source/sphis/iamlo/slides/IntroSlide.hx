@@ -2,11 +2,10 @@ package sphis.iamlo.slides;
 
 import flixel.FlxSprite;
 import flixel.tweens.FlxTween;
-import flixel.util.FlxTimer;
 
 class IntroSlide extends Slide
 {
-	override public function new()
+	override public function create()
 	{
 		var event_1:SlideEvent = new SlideEvent(1.0);
 		event_1.init = function()
@@ -27,7 +26,8 @@ class IntroSlide extends Slide
 			FlxTween.tween(nicom, {alpha: 0}, 1);
 		}
 
-		this.events = [event_1];
-		super();
+		this.events.push(event_1);
+
+		super.create();
 	}
 }

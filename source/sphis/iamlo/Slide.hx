@@ -55,6 +55,8 @@ class Slide extends FlxState
 	{
 		super.create();
 
+		trace(this.events.length + " events");
+
 		if (this.events.length > 0)
 		{
 			this.startEvent(0);
