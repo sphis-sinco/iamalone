@@ -37,6 +37,9 @@ class IntroSlide extends Slide
 
 		this.events.push(event_1);
 
+		this.press_key_to_continue = true;
+		this.can_skip_before_end = true;
+
 		super.create();
 	}
 }
