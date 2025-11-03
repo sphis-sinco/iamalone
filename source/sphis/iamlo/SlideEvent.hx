@@ -16,45 +16,45 @@ class SlideEvent
 
 	public function setVariable(variable:String, value:Dynamic)
 	{
-		this.variables.set(variable, value);
+		variables.set(variable, value);
 	}
 
 	public function getVariable(variable:String):Dynamic
 	{
-		return this.variables.get(variable);
+		return variables.get(variable);
 	}
 
 	public function addObject(id:String, object:FlxBasic)
 	{
-		if (this.objects.exists(id))
+		if (objects.exists(id))
 		{
 			trace("Didn't add " + id + " because it already exists");
 			return;
 		}
 
-		this.objects.set(id, object);
+		objects.set(id, object);
 	}
 
 	public function getObject(id:String):FlxBasic
 	{
-		if (!this.objects.exists(id))
+		if (!objects.exists(id))
 		{
 			return null;
 		}
 		else
 		{
-			return this.objects.get(id);
+			return objects.get(id);
 		}
 	}
 
 	public function removeObject(id:String)
 	{
-		if (!this.objects.exists(id))
+		if (!objects.exists(id))
 		{
 			return;
 		}
 
-		this.objects.remove(id);
+		objects.remove(id);
 	}
 
 	public dynamic function init() {};

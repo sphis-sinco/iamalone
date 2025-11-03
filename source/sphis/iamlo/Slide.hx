@@ -39,38 +39,38 @@ class Slide extends FlxState
 	{
 		super();
 
-		this.object_press_key_to_continue_text = new FlxText();
-		this.object_press_key_to_skip_text = new FlxText();
+		object_press_key_to_continue_text = new FlxText();
+		object_press_key_to_skip_text = new FlxText();
 
-		this.object_press_key_to_continue_text.size = 16;
-		this.object_press_key_to_skip_text.size = this.object_press_key_to_continue_text.size;
+		object_press_key_to_continue_text.size = 16;
+		object_press_key_to_skip_text.size = object_press_key_to_continue_text.size;
 
-		this.object_press_key_to_continue_text.alignment = FlxTextAlign.RIGHT;
-		this.object_press_key_to_skip_text.alignment = this.object_press_key_to_continue_text.alignment;
+		object_press_key_to_continue_text.alignment = FlxTextAlign.RIGHT;
+		object_press_key_to_skip_text.alignment = object_press_key_to_continue_text.alignment;
 
-		this.object_press_key_to_continue_text.color = FlxColor.WHITE;
-		this.object_press_key_to_skip_text.color = this.object_press_key_to_continue_text.color;
+		object_press_key_to_continue_text.color = FlxColor.WHITE;
+		object_press_key_to_skip_text.color = object_press_key_to_continue_text.color;
 
-		this.object_press_key_to_continue_text.text = "Press " + this.continue_key.toString() + " to continue";
-		this.object_press_key_to_skip_text.text = "Press " + this.skip_key.toString() + " to skip";
+		object_press_key_to_continue_text.text = "Press " + continue_key.toString() + " to continue";
+		object_press_key_to_skip_text.text = "Press " + skip_key.toString() + " to skip";
 	}
 
 	override function create()
 	{
 		super.create();
 
-		add(this.object_press_key_to_continue_text);
-		add(this.object_press_key_to_skip_text);
+		add(object_press_key_to_continue_text);
+		add(object_press_key_to_skip_text);
 
-		trace(this.events.length + " events");
+		trace(events.length + " events");
 
-		if (this.events.length > 0)
+		if (events.length > 0)
 		{
-			this.startEvent(0);
+			startEvent(0);
 		}
 		else
 		{
-			this.endSlide();
+			endSlide();
 		}
 	}
 
@@ -78,128 +78,126 @@ class Slide extends FlxState
 	{
 		super.update(elapsed);
 
-		FlxG.watch.addQuick("Timer Finished: ", this.object_timer.finished);
-		FlxG.watch.addQuick("Press Key To Continue: ", this.press_key_to_continue);
-		FlxG.watch.addQuick("Can Skip Before End: ", this.can_skip_before_end);
-		FlxG.watch.addQuick("Current Event: ", this.current_event + 1);
-		FlxG.watch.addQuick("Events Count: ", this.events.length);
-		FlxG.watch.addQuick("At End: ", (this.current_event + 1) == this.events.length);
+		FlxG.watch.addQuick("Timer Finished: ", object_timer.finished);
+		FlxG.watch.addQuick("Press Key To Continue: ", press_key_to_continue);
+		FlxG.watch.addQuick("Can Skip Before End: ", can_skip_before_end);
+		FlxG.watch.addQuick("Current Event: ", current_event + 1);
+		FlxG.watch.addQuick("Events Count: ", events.length);
+		FlxG.watch.addQuick("At End: ", (current_event + 1) == events.length);
 
-		this.object_press_key_to_continue_text.setPosition(FlxG.width
-			- this.object_press_key_to_continue_text.width
+		object_press_key_to_continue_text.setPosition(FlxG.width - object_press_key_to_continue_text.width
 			- 2,
 			FlxG.height
-			- this.object_press_key_to_continue_text.height
+			- object_press_key_to_continue_text.height
 			- 2);
-		this.object_press_key_to_skip_text.setPosition(FlxG.width - this.object_press_key_to_skip_text.width - 2,
-			FlxG.height - this.object_press_key_to_skip_text.height - 2);
+		object_press_key_to_skip_text.setPosition(FlxG.width - object_press_key_to_skip_text.width - 2, FlxG.height - object_press_key_to_skip_text.height - 2);
 
-		if (this.events[current_event] == null)
+		if (events[current_event] == null)
 		{
-			this.object_press_key_to_continue_text.visible = false;
-			this.object_press_key_to_skip_text.visible = false;
+			object_press_key_to_continue_text.visible = false;
+			object_press_key_to_skip_text.visible = false;
 
 			return;
 		}
 
-		this.events[current_event].update();
+		events[current_event].update();
 
-		if (this.can_skip_before_end && this.proceeding_slide != null)
+		if (can_skip_before_end && proceeding_slide != null)
 		{
-			this.object_press_key_to_skip_text.visible = true;
+			object_press_key_to_skip_text.visible = true;
 
-			if (FlxG.keys.anyJustReleased([this.skip_key]))
+			if (FlxG.keys.anyJustReleased([skip_key]))
 			{
-				this.endSlide();
+				endSlide();
 			}
 		}
 
-		if (this.object_timer.finished)
+		if (object_timer.finished)
 		{
-			if (this.press_key_to_continue)
+			if (press_key_to_continue)
 			{
-				this.object_press_key_to_continue_text.visible = true;
-				if (FlxG.keys.anyJustReleased([this.continue_key]))
+				object_press_key_to_continue_text.visible = true;
+				if (FlxG.keys.anyJustReleased([continue_key]))
 				{
-					if (this.events.length > (this.current_event + 1))
+					if (events.length > (current_event + 1))
 					{
-						this.startEvent(this.current_event + 1);
+						startEvent(current_event + 1);
 					}
-					else if (this.events.length == (this.current_event + 1))
+					else if (events.length == (current_event + 1))
 					{
-						if (this.proceeding_slide != null)
+						if (proceeding_slide != null)
 						{
-							this.endSlide();
+							endSlide();
 						}
 						else
 						{
-							this.object_press_key_to_continue_text.visible = false;
+							object_press_key_to_continue_text.visible = false;
 						}
 					}
 				}
 			}
 
-			if (this.current_event == (this.events.length - 1) && this.proceeding_slide != null)
+			if (current_event == (events.length - 1) && proceeding_slide != null)
 			{
-				this.object_press_key_to_skip_text.visible = true;
+				object_press_key_to_skip_text.visible = true;
 			}
 		}
-		if (this.object_press_key_to_continue_text.visible && this.object_press_key_to_skip_text.visible)
+		if (object_press_key_to_continue_text.visible && object_press_key_to_skip_text.visible)
 		{
-			this.object_press_key_to_skip_text.y -= this.object_press_key_to_continue_text.height;
+			object_press_key_to_skip_text.y -= object_press_key_to_continue_text.height;
 		}
 	}
 
 	public function startEvent(event:Int)
 	{
-		if (this.events[event] == null)
+		if (events[event] == null)
 		{
 			return;
 		}
 
 		trace("starting event " + (event + 1));
 
-		this.object_press_key_to_continue_text.visible = false;
-		this.object_press_key_to_skip_text.visible = false;
+		object_press_key_to_continue_text.visible = false;
+		object_press_key_to_skip_text.visible = false;
 
-		this.events[event].init();
+		events[event].init();
 
-		for (object in this.members)
+		for (object in members)
 		{
-			if (object == this.object_press_key_to_continue_text)
+			if (object == object_press_key_to_continue_text)
 				continue;
-			if (object == this.object_press_key_to_skip_text)
+			if (object == object_press_key_to_skip_text)
 				continue;
 
-			this.members.remove(object);
+			members.remove(object);
 			object.destroy();
 		}
-		this.events[event].create();
+		events[event].create();
 
-		this.object_timer = new FlxTimer();
-		this.object_timer.start(this.events[event].slide_length, function(object_timer:FlxTimer)
+		object_timer = new FlxTimer();
+		object_timer.start(events[event].slide_length, function(object_timer:FlxTimer)
 		{
-			if (!this.press_key_to_continue)
+			if (!press_key_to_continue)
 			{
-				if (this.events.length > (event + 1))
+				if (events.length > (event + 1))
 				{
-					this.startEvent(event + 1);
+					startEvent(event + 1);
 				}
-				else if (this.events.length == (event + 1))
+				else if (events.length == (event + 1))
 				{
-					this.endSlide();
+					endSlide();
 				}
 			}
 		});
 
-		this.current_event = event;
+		current_event = event;
 	}
 
 	public function endSlide()
 	{
-		if (this.proceeding_slide != null)
+		if (proceeding_slide != null)
 		{
-			FlxG.switchState(() -> this.proceeding_slide);
+			FlxG.switchState(() -> proceeding_slide);
 		}
 	}
 }

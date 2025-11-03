@@ -26,7 +26,7 @@ class IntroSlide extends Slide
 			nicom.alpha = 0;
 			nicom.screenCenter();
 
-			this.add(nicom);
+			add(nicom);
 
 			FlxTween.tween(nicom, {alpha: 1}, 1, {
 				onComplete: function(tween:FlxTween)
@@ -50,7 +50,7 @@ class IntroSlide extends Slide
 
 			nicom.screenCenter();
 
-			this.add(nicom);
+			add(nicom);
 
 			FlxTween.tween(nicom, {alpha: 0.75}, 1, {
 				ease: FlxEase.sineInOut
@@ -135,10 +135,10 @@ class IntroSlide extends Slide
 			});
 		};
 
-		this.events = [event_1, event_2];
+		events = [event_1, event_2];
 
-		this.press_key_to_continue = true;
-		this.can_skip_before_end = true;
+		press_key_to_continue = true;
+		can_skip_before_end = true;
 
 		super.create();
 	}
