@@ -102,36 +102,6 @@ class IntroSlide extends Slide
 
 					i++;
 				}
-
-				new FlxTimer().start((1 / FlxG.drawFramerate), function(timer:FlxTimer)
-				{
-					nicom.scale.set(1.3, 0.7);
-				});
-				new FlxTimer().start((1 / FlxG.drawFramerate) * 2, function(timer:FlxTimer)
-				{
-					nicom.scale.set(1.35, 0.65);
-				});
-				new FlxTimer().start((1 / FlxG.drawFramerate) * 4, function(timer:FlxTimer)
-				{
-					nicom.loadGraphic('assets/images/nicom-front-face-fear.png');
-					nicom.scale.set(0.9, 1.1);
-				});
-				new FlxTimer().start((1 / FlxG.drawFramerate) * 5, function(timer:FlxTimer)
-				{
-					nicom.scale.set(1 - .5, 1.5);
-				});
-				new FlxTimer().start((1 / FlxG.drawFramerate) * 7, function(timer:FlxTimer)
-				{
-					nicom.scale.set(1 - .4, 1.4);
-				});
-				new FlxTimer().start((1 / FlxG.drawFramerate) * 9, function(timer:FlxTimer)
-				{
-					nicom.scale.set(1 - .2, 1.2);
-				});
-				new FlxTimer().start((1 / FlxG.drawFramerate) * 11, function(timer:FlxTimer)
-				{
-					nicom.scale.set(1, 1);
-				});
 			});
 		};
 
