@@ -34,9 +34,9 @@ class Slide extends FlxState
 	private var object_press_key_to_continue_text:FlxText;
 	private var object_press_key_to_skip_text:FlxText;
 
-	override function create()
+	override public function new()
 	{
-		super.create();
+		super();
 
 		this.object_press_key_to_continue_text = new FlxText();
 		this.object_press_key_to_skip_text = new FlxText();
@@ -44,11 +44,16 @@ class Slide extends FlxState
 		this.object_press_key_to_continue_text.size = 16;
 		this.object_press_key_to_skip_text.size = this.object_press_key_to_continue_text.size;
 
-        this.object_press_key_to_continue_text.alignment = FlxTextAlign.RIGHT;
-        this.object_press_key_to_skip_text.alignment = this.object_press_key_to_continue_text.alignment;
+		this.object_press_key_to_continue_text.alignment = FlxTextAlign.RIGHT;
+		this.object_press_key_to_skip_text.alignment = this.object_press_key_to_continue_text.alignment;
 
 		this.object_press_key_to_continue_text.text = "Press " + this.continue_key.toString() + " to continue";
 		this.object_press_key_to_skip_text.text = "Press " + this.skip_key.toString() + " to skip";
+	}
+
+	override function create()
+	{
+		super.create();
 
 		if (this.events.length > 0)
 		{
@@ -64,50 +69,53 @@ class Slide extends FlxState
 	{
 		super.update(elapsed);
 
-        this.object_press_key_to_continue_text.setPosition(
-            FlxG.width - this.object_press_key_to_continue_text.width - 2,
-            FlxG.height - this.object_press_key_to_continue_text.height - 2
-        );
-        this.object_press_key_to_skip_text.setPosition(
-            FlxG.width - this.object_press_key_to_skip_text.width - 2,
-            FlxG.height - this.object_press_key_to_skip_text.height - 2
-        );
+		this.object_press_key_to_continue_text.setPosition(FlxG.width
+			- this.object_press_key_to_continue_text.width
+			- 2,
+			FlxG.height
+			- this.object_press_key_to_continue_text.height
+			- 2);
+		this.object_press_key_to_skip_text.setPosition(FlxG.width - this.object_press_key_to_skip_text.width - 2,
+			FlxG.height - this.object_press_key_to_skip_text.height - 2);
 
 		if (this.events[current_event] == null)
 		{
-            this.object_press_key_to_continue_text.visible = false;
-            this.object_press_key_to_skip_text.visible = false;
+			this.object_press_key_to_continue_text.visible = false;
+			this.object_press_key_to_skip_text.visible = false;
 
 			return;
 		}
 
 		this.events[current_event].update();
 
-        if (this.object_timer.finished)
-        {
-            if (this.press_key_to_continue)
-            {
-                this.object_press_key_to_continue_text.visible = true;
-            }
+		if (this.object_timer.finished)
+		{
+			if (this.press_key_to_continue)
+			{
+				this.object_press_key_to_continue_text.visible = true;
+			}
 
-            if (this.can_skip_before_end && this.current_event != (this.events.length - 1))
-            {
-                this.object_press_key_to_skip_text.visible = true;
-            }
-            
-            if (this.current_event == (this.events.length - 1))
-            {
-                this.object_press_key_to_skip_text.visible = true;
-            }
-        }
+			if (this.can_skip_before_end && this.current_event != (this.events.length - 1))
+			{
+				this.object_press_key_to_skip_text.visible = true;
+			}
 
-        if (this.object_press_key_to_continue_text.visible && this.object_press_key_to_skip_text.visible)
-        {
-            this.object_press_key_to_skip_text.setPosition(
-                FlxG.width - this.object_press_key_to_skip_text.width - 2,
-                FlxG.height - this.object_press_key_to_skip_text.height - this.object_press_key_to_continue_text.height - 4
-            );
-        }
+			if (this.current_event == (this.events.length - 1))
+			{
+				this.object_press_key_to_skip_text.visible = true;
+			}
+		}
+
+		if (this.object_press_key_to_continue_text.visible && this.object_press_key_to_skip_text.visible)
+		{
+			this.object_press_key_to_skip_text.setPosition(FlxG.width
+				- this.object_press_key_to_skip_text.width
+				- 2,
+				FlxG.height
+				- this.object_press_key_to_skip_text.height
+				- this.object_press_key_to_continue_text.height
+				- 4);
+		}
 	}
 
 	public function startEvent(event:Int)
@@ -116,9 +124,8 @@ class Slide extends FlxState
 		{
 			return;
 		}
-        
-        this.object_press_key_to_continue_text.visible = false;
-        this.object_press_key_to_skip_text.visible = false;
+		this.object_press_key_to_continue_text.visible = false;
+		this.object_press_key_to_skip_text.visible = false;
 
 		this.events[event].init();
 
