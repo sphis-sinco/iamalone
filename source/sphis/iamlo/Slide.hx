@@ -156,14 +156,6 @@ class Slide extends FlxState
 		{
 			return;
 		}
-		for (object in this.members)
-		{
-			if (![this.object_press_key_to_continue_text, this.object_press_key_to_skip_text].contains(cast object))
-			{
-				this.members.remove(object);
-				object.destroy();
-			}
-		}
 
 		trace("starting event " + (event + 1));
 
@@ -172,6 +164,16 @@ class Slide extends FlxState
 
 		this.events[event].init();
 
+		for (object in this.members)
+		{
+			if (object == this.object_press_key_to_continue_text)
+				continue;
+			if (object == this.object_press_key_to_skip_text)
+				continue;
+
+			this.members.remove(object);
+			object.destroy();
+		}
 		this.events[event].create();
 
 		this.object_timer = new FlxTimer();

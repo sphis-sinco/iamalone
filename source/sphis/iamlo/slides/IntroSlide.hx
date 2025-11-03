@@ -3,6 +3,7 @@ package sphis.iamlo.slides;
 import flixel.FlxSprite;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flixel.util.FlxTimer;
 
 class IntroSlide extends Slide
 {
@@ -52,6 +53,10 @@ class IntroSlide extends Slide
 
 			FlxTween.tween(nicom, {alpha: 0.75}, 1, {
 				ease: FlxEase.sineInOut
+			});
+			new FlxTimer().start(1, function(timer:FlxTimer)
+			{
+				nicom.loadGraphic('assets/images/nicom-front-face-fear');
 			});
 		};
 
