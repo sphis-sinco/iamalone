@@ -104,7 +104,7 @@ class Slide extends FlxState
 
 		this.events[current_event].update();
 
-		if (this.can_skip_before_end)
+		if (this.can_skip_before_end && this.proceeding_slide != null)
 		{
 			this.object_press_key_to_skip_text.visible = true;
 
@@ -121,7 +121,21 @@ class Slide extends FlxState
 				this.object_press_key_to_continue_text.visible = true;
 				if (FlxG.keys.anyJustReleased([this.continue_key]))
 				{
-					this.startEvent(this.current_event + 1);
+					if (this.events.length > (this.current_event + 1))
+					{
+						this.startEvent(this.current_event + 1);
+					}
+					else if (this.events.length == (this.current_event + 1))
+					{
+						if (this.proceeding_slide != null)
+						{
+							this.endSlide();
+						}
+						else
+						{
+							this.object_press_key_to_continue_text.visible = false;
+						}
+					}
 				}
 			}
 
@@ -130,14 +144,6 @@ class Slide extends FlxState
 				this.object_press_key_to_skip_text.visible = true;
 			}
 		}
-
-		if ((this.object_press_key_to_skip_text.visible || this.object_press_key_to_continue_text.visible)
-			&& this.proceeding_slide == null)
-		{
-			this.object_press_key_to_continue_text.visible = false;
-			this.object_press_key_to_skip_text.visible = false;
-		}
-
 		if (this.object_press_key_to_continue_text.visible && this.object_press_key_to_skip_text.visible)
 		{
 			this.object_press_key_to_skip_text.y -= this.object_press_key_to_continue_text.height;
@@ -152,7 +158,7 @@ class Slide extends FlxState
 		}
 		for (object in this.members)
 		{
-			if (![this.object_press_key_to_continue_text, this.object_press_key_to_skip_text].contains(object))
+			if (![this.object_press_key_to_continue_text, this.object_press_key_to_skip_text].contains(cast object))
 			{
 				this.members.remove(object);
 				object.destroy();
@@ -171,16 +177,16 @@ class Slide extends FlxState
 		this.object_timer = new FlxTimer();
 		this.object_timer.start(this.events[event].slide_length, function(object_timer:FlxTimer)
 		{
-			if (this.events.length > (event + 1))
+			if (!this.press_key_to_continue)
 			{
-				if (!this.press_key_to_continue)
+				if (this.events.length > (event + 1))
 				{
 					this.startEvent(event + 1);
 				}
-			}
-			else if (this.events.length == (event + 1))
-			{
-				this.endSlide();
+				else if (this.events.length == (event + 1))
+				{
+					this.endSlide();
+				}
 			}
 		});
 
