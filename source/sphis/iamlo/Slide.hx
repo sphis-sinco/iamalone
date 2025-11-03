@@ -59,6 +59,9 @@ class Slide extends FlxState
 	{
 		super.create();
 
+		add(this.object_press_key_to_continue_text);
+		add(this.object_press_key_to_skip_text);
+
 		trace(this.events.length + " events");
 
 		if (this.events.length > 0)
@@ -74,6 +77,13 @@ class Slide extends FlxState
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
+
+		FlxG.watch.addQuick("Timer Finished: ", this.object_timer.finished);
+		FlxG.watch.addQuick("Press Key To Continue: ", this.press_key_to_continue);
+		FlxG.watch.addQuick("Can Skip Before End: ", this.can_skip_before_end);
+		FlxG.watch.addQuick("Current Event: ", this.current_event + 1);
+		FlxG.watch.addQuick("Events Count: ", this.events.length);
+		FlxG.watch.addQuick("At End: ", (this.current_event + 1) == this.events.length);
 
 		this.object_press_key_to_continue_text.setPosition(FlxG.width
 			- this.object_press_key_to_continue_text.width
