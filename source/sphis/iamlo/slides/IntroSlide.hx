@@ -56,7 +56,7 @@ class IntroSlide extends Slide
 			});
 			new FlxTimer().start(1, function(timer:FlxTimer)
 			{
-				nicom.loadGraphic('assets/images/nicom-front-face-fear');
+				nicom.loadGraphic('assets/images/nicom-front-face-fear.png');
 			});
 		};
 
