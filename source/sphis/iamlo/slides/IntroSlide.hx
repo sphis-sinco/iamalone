@@ -1,6 +1,7 @@
 package sphis.iamlo.slides;
 
 import flixel.FlxSprite;
+import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 
 class IntroSlide extends Slide
@@ -29,7 +30,8 @@ class IntroSlide extends Slide
 				onComplete: function(tween:FlxTween)
 				{
 					trace("Tweened Nicom into view");
-				}
+				},
+				ease: FlxEase.sineInOut
 			});
 		}
 
