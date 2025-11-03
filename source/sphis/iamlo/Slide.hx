@@ -85,11 +85,8 @@ class Slide extends FlxState
 		FlxG.watch.addQuick("Events Count: ", events.length);
 		FlxG.watch.addQuick("At End: ", (current_event + 1) == events.length);
 
-		object_press_key_to_continue_text.setPosition(FlxG.width - object_press_key_to_continue_text.width
-			- 2,
-			FlxG.height
-			- object_press_key_to_continue_text.height
-			- 2);
+		object_press_key_to_continue_text.setPosition(FlxG.width - object_press_key_to_continue_text.width - 2,
+			FlxG.height - object_press_key_to_continue_text.height - 2);
 		object_press_key_to_skip_text.setPosition(FlxG.width - object_press_key_to_skip_text.width - 2, FlxG.height - object_press_key_to_skip_text.height - 2);
 
 		if (events[current_event] == null)
@@ -116,6 +113,9 @@ class Slide extends FlxState
 		{
 			if (press_key_to_continue)
 			{
+				if (events.length == (current_event + 1) && proceeding_slide == null)
+					return;
+
 				object_press_key_to_continue_text.visible = true;
 				if (FlxG.keys.anyJustReleased([continue_key]))
 				{
@@ -125,14 +125,7 @@ class Slide extends FlxState
 					}
 					else if (events.length == (current_event + 1))
 					{
-						if (proceeding_slide != null)
-						{
-							endSlide();
-						}
-						else
-						{
-							object_press_key_to_continue_text.visible = false;
-						}
+						endSlide();
 					}
 				}
 			}
