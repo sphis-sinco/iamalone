@@ -7,10 +7,21 @@ class SlideEvent
 	public var slide_length:Float = 1.0;
 
 	public var objects:Map<String, FlxBasic> = [];
+	public var variables:Map<String, Dynamic> = [];
 
 	public function new(slide_length:Float)
 	{
 		this.slide_length = slide_length;
+	}
+
+	public function setVariable(variable:String, value:Dynamic)
+	{
+		this.variables.set(variable, value);
+	}
+
+	public function getVariable(variable:String):Dynamic
+	{
+		return this.variables.get(variable);
 	}
 
 	public function addObject(id:String, object:FlxBasic)

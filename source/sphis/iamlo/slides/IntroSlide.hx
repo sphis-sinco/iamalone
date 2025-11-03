@@ -55,9 +55,53 @@ class IntroSlide extends Slide
 			FlxTween.tween(nicom, {alpha: 0.75}, 1, {
 				ease: FlxEase.sineInOut
 			});
+			event_2.setVariable('squash_and_stretch_frames', [0, 1, 2, 4, 5, 7, 9, 11]);
+			event_2.setVariable('squash_and_stretch_differences', [
+				['x', 0.1],
+				['x', 0.2],
+				['x', 0.25],
+				['y', 0.1],
+				['y', 0.5],
+				['y', 0.4],
+				['y', 0.2],
+				['x', 0],
+			]);
+
 			new FlxTimer().start(1, function(timer:FlxTimer)
 			{
-				nicom.scale.set(1.1, 0.9);
+				var squash_and_stretch_frames:Array<Int> = cast event_2.getVariable('squash_and_stretch_frames');
+				var i = 0;
+				for (frame in squash_and_stretch_frames)
+				{
+					var difference:Array<Dynamic> = cast event_2.getVariable('squash_and_stretch_differences')[i];
+					var difference_axis:String = difference[0];
+					var difference_value:Float = difference[1];
+					var curI = i;
+
+					new FlxTimer().start((1 / FlxG.drawFramerate) * frame, function(timer:FlxTimer)
+					{
+						trace('squash_and_stretch_frame={i='
+							+ curI
+							+ ', frame='
+							+ frame
+							+ ', axis='
+							+ difference_axis
+							+ ', value='
+							+ difference_value
+							+ '}');
+
+						if (difference_axis == 'x')
+						{
+							nicom.scale.set(1 + difference_value, 1 - difference_value);
+						}
+						else if (difference_axis == 'y')
+						{
+							nicom.scale.set(1 - difference_value, 1 + difference_value);
+						}
+					});
+
+					i++;
+				}
 
 				new FlxTimer().start((1 / FlxG.drawFramerate), function(timer:FlxTimer)
 				{
@@ -92,7 +136,7 @@ class IntroSlide extends Slide
 		};
 
 		this.events = [event_1, event_2];
-		
+
 		this.press_key_to_continue = true;
 		this.can_skip_before_end = true;
 
