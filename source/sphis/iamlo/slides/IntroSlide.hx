@@ -23,6 +23,8 @@ class IntroSlide extends Slide
 			nicom.alpha = 0;
 			nicom.screenCenter();
 
+			this.add(nicom);
+
 			FlxTween.tween(nicom, {alpha: 1}, 1, {
 				onComplete: function(tween:FlxTween)
 				{
