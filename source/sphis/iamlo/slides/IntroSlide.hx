@@ -66,6 +66,18 @@ class IntroSlide extends Slide
 				['y', 0.2],
 				['x', 0],
 			]);
+			event_2.setVariable('squash_and_stretch_funcs', [
+				null,
+				null,
+				null,
+				function() {
+					nicom.loadGraphic('assets/images/nicom-front-face-fear.png');
+				},
+				null,
+				null,
+				null,
+				null
+			]);
 
 			new FlxTimer().start(1, function(timer:FlxTimer)
 			{
@@ -76,6 +88,7 @@ class IntroSlide extends Slide
 					var difference:Array<Dynamic> = cast event_2.getVariable('squash_and_stretch_differences')[i];
 					var difference_axis:String = difference[0];
 					var difference_value:Float = difference[1];
+					var func:Void->Void = cast event_2.getVariable('squash_and_stretch_funcs')[i];
 					var curI = i;
 
 					new FlxTimer().start((1 / FlxG.drawFramerate) * frame, function(timer:FlxTimer)
@@ -97,6 +110,11 @@ class IntroSlide extends Slide
 						else if (difference_axis == 'y')
 						{
 							nicom.scale.set(1 - difference_value, 1 + difference_value);
+						}
+
+						if (func != null)
+						{
+							func();
 						}
 					});
 
