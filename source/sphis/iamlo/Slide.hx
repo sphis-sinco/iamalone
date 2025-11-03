@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxState;
 import flixel.input.keyboard.FlxKey;
 import flixel.text.FlxText;
+import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 
 class Slide extends FlxState
@@ -46,6 +47,9 @@ class Slide extends FlxState
 
 		this.object_press_key_to_continue_text.alignment = FlxTextAlign.RIGHT;
 		this.object_press_key_to_skip_text.alignment = this.object_press_key_to_continue_text.alignment;
+
+		this.object_press_key_to_continue_text.color = FlxColor.WHITE;
+		this.object_press_key_to_skip_text.color = this.object_press_key_to_continue_text.color;
 
 		this.object_press_key_to_continue_text.text = "Press " + this.continue_key.toString() + " to continue";
 		this.object_press_key_to_skip_text.text = "Press " + this.skip_key.toString() + " to skip";
