@@ -104,16 +104,25 @@ class Slide extends FlxState
 
 		this.events[current_event].update();
 
+		if (this.can_skip_before_end)
+		{
+			this.object_press_key_to_skip_text.visible = true;
+
+			if (FlxG.keys.anyJustReleased([this.skip_key]))
+			{
+				this.endSlide();
+			}
+		}
+
 		if (this.object_timer.finished)
 		{
 			if (this.press_key_to_continue)
 			{
 				this.object_press_key_to_continue_text.visible = true;
-			}
-
-			if (this.can_skip_before_end && this.current_event != (this.events.length - 1))
-			{
-				this.object_press_key_to_skip_text.visible = true;
+				if (FlxG.keys.anyJustReleased([this.continue_key]))
+				{
+					this.startEvent(this.current_event + 1);
+				}
 			}
 
 			if (this.current_event == (this.events.length - 1))
@@ -122,15 +131,16 @@ class Slide extends FlxState
 			}
 		}
 
+		if ((this.object_press_key_to_skip_text.visible || this.object_press_key_to_continue_text.visible)
+			&& this.proceeding_slide == null)
+		{
+			this.object_press_key_to_continue_text.visible = false;
+			this.object_press_key_to_skip_text.visible = false;
+		}
+
 		if (this.object_press_key_to_continue_text.visible && this.object_press_key_to_skip_text.visible)
 		{
-			this.object_press_key_to_skip_text.setPosition(FlxG.width
-				- this.object_press_key_to_skip_text.width
-				- 2,
-				FlxG.height
-				- this.object_press_key_to_skip_text.height
-				- this.object_press_key_to_continue_text.height
-				- 4);
+			this.object_press_key_to_skip_text.y -= this.object_press_key_to_continue_text.height;
 		}
 	}
 
